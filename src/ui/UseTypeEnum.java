@@ -1,0 +1,3 @@
+public enum UseTypeEnum{
+	PLUMBINGWORK, CONSTRUCTION, PAINT
+}
