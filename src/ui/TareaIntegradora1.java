@@ -1,8 +1,8 @@
 import java.util.Scanner;
 public class TareaIntegradora1{
-	public static final double PLUMBINGWORK=2600000;
-	public static final double CONSTRUCTION=1300000;
-	public static final double PAINT=1300000;
+	public static final double PLUMBINGWORKFIX=2600000;
+	public static final double CONSTRUCTIONFIX=1300000;
+	public static final double PAINTFIX=980000;
 	public static void main(String[] args){
 		Scanner entry=new Scanner(System.in);
 		System.out.println("ingrese cantidad total de productos (no contar productos repetidos)");
@@ -18,7 +18,7 @@ public class TareaIntegradora1{
 		boolean PaintVerification=false;
 		entry.nextLine();
 		for(int i=0;i<totalItems;i++){
-			System.out.println("ingrese nombre del producto:");
+			System.out.println("ingrese nombre del producto #"+(i+1));
 			names[i]=entry.nextLine();
 			System.out.println("ingrese cantidad del producto:");
 			amountOfItems[i]=entry.nextInt();
@@ -29,13 +29,9 @@ public class TareaIntegradora1{
 			System.out.println("ingrese precio en la ferreteria del barrio");
 			barrioPrices[i]=entry.nextDouble();
 			entry.nextLine();
-			/*System.out.println("ingrese el uso que se le va a dar al material (obras blancas, obras negras o pintura):");
-			useType[i]=entry.nextLine();
-			useType[i]=useType[i].toLowerCase();
-			*/
 			}
 			for(int j=0;j<totalItems;j++){
-			System.out.println("ingrese el uso que se le va a dar al producto"+names[j]);
+			System.out.println("ingrese el uso que se le va a dar al producto "+names[j]);
 			System.out.println("ingrese 1 para obras negras, 2 para obras blancas y 3 para pintura");
 			int typeDefinition=entry.nextInt();
 			switch(typeDefinition){
@@ -50,12 +46,12 @@ public class TareaIntegradora1{
 				break;
 			}
 			}
-			System.out.println("El costo total en Home Center es: "+TotalMetodHC(amountOfItems,HCPrices,totalItems,totalItems,PaintVerification,ConsVerification,PWVerification,useType));
+			System.out.println("El costo total en Home Center es: "+TotalMetodHC(amountOfItems,HCPrices,totalItems,,PaintVerification,ConsVerification,PWVerification,useType));
 			System.out.println("El costo total en la ferreteria del barrio es: "+totalMetodBarrio(amountOfItems,barrioPrices,totalItems));
 			System.out.println("El costo total en la ferreteria del centro es: "+totalMetodCentro(amountOfItems,centroPrices,totalItems));
 		System.out.println("");
 	}
-	public static double TotalMetodHC(int[] amountOfItems, double[] HCPrices, int totalItems, int totalItems2, boolean PaintVerification, boolean ConsVerification, boolean PWVerification,Object[] useType){
+	public static double TotalMetodHC(int[] amountOfItems, double[] HCPrices, int totalItems, boolean PaintVerification, boolean ConsVerification, boolean PWVerification,Object[] useType){
 		double totalPriceHC=0;
 		for(int i=0;i<totalItems;i++){
 			totalPriceHC=(amountOfItems[i]*HCPrices[i])+totalPriceHC;
@@ -71,8 +67,13 @@ public class TareaIntegradora1{
 				PaintVerification=true;
 			}
 		}
-		if((PaintVerification=true) && (ConsVerification=true) && (PWVerification=true)){
-			totalPriceHC=totalPriceHC+PLUMBINGWORK+CONSTRUCTION+PAINT;
+		if((PaintVerification=true) && (ConsVerification=true)){
+			if(PWVerification=true){
+			totalPriceHC=totalPriceHC+PLUMBINGWORKFIX+CONSTRUCTIONFIX+PAINTFIX;
+			}
+			else{
+				totalPriceHC=totalPriceHC+CONSTRUCTIONFIX+PAINTFIX;
+			}
 		}
 		return totalPriceHC;
 	}
@@ -91,3 +92,4 @@ public class TareaIntegradora1{
 		return totalPriceBarrio;
 	}
 }
+
