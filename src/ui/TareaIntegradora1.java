@@ -37,16 +37,19 @@ public class TareaIntegradora1{
 			switch(typeDefinition){
 				case 1:
 				useType[j]=UseTypeEnum.PLUMBINGWORK;
+				PWVerification=true;
 				break;
 				case 2:
 				useType[j]=UseTypeEnum.CONSTRUCTION;
+				ConsVerification=true;
 				break;
 				case 3:
 				useType[j]=UseTypeEnum.PAINT;
+				PaintVerification=true;
 				break;
 			}
 			}
-			System.out.println("El costo total en Home Center es: "+TotalMetodHC(amountOfItems,HCPrices,totalItems,,PaintVerification,ConsVerification,PWVerification,useType));
+			System.out.println("El costo total en Home Center es: "+TotalMetodHC(amountOfItems,HCPrices,totalItems,PaintVerification,ConsVerification,PWVerification,useType));
 			System.out.println("El costo total en la ferreteria del barrio es: "+totalMetodBarrio(amountOfItems,barrioPrices,totalItems));
 			System.out.println("El costo total en la ferreteria del centro es: "+totalMetodCentro(amountOfItems,centroPrices,totalItems));
 		System.out.println("");
@@ -56,7 +59,7 @@ public class TareaIntegradora1{
 		for(int i=0;i<totalItems;i++){
 			totalPriceHC=(amountOfItems[i]*HCPrices[i])+totalPriceHC;
 		}
-		for(int n=0;n<totalItems;n++){
+		/*for(int n=0;n<totalItems;n++){
 			if(useType[n]==UseTypeEnum.PLUMBINGWORK){
 				PWVerification=true;
 			}
@@ -66,7 +69,7 @@ public class TareaIntegradora1{
 			if(useType[n]==UseTypeEnum.PAINT){
 				PaintVerification=true;
 			}
-		}
+		}*/
 		if((PaintVerification=true) && (ConsVerification=true)){
 			if(PWVerification=true){
 			totalPriceHC=totalPriceHC+PLUMBINGWORKFIX+CONSTRUCTIONFIX+PAINTFIX;
