@@ -13,6 +13,9 @@ public class TareaIntegradora1{
 		double [] centroPrices=new double[totalItems];
 		int [] amountOfItems=new int[totalItems];
 		UseTypeEnum [] useType=new UseTypeEnum[totalItems];
+		String [] PWArray=new String[totalItems];
+		String [] ConsArray=new String[totalItems];
+		String [] PaintArray=new String[totalItems];
 		boolean PWVerification=false;
 		boolean ConsVerification=false;
 		boolean PaintVerification=false;
@@ -82,12 +85,13 @@ public class TareaIntegradora1{
 			totalWithoutTAHC=TotalMethodHC(amountOfItems,HCPrices,totalItems,PaintVerification,ConsVerification,PWVerification,useType);
 			totalWithoutTABarrio=totalMethodBarrio(amountOfItems,barrioPrices,totalItems, PaintVerification, ConsVerification, PWVerification, useType);
 			totalWithoutTACentro=totalMethodCentro(amountOfItems,centroPrices,totalItems, PaintVerification, ConsVerification, PWVerification, useType);
-			takeawayCalculation(location,amountOfItems,totalItems,names,HCPrices,takeaway,barrioPrices,centroPrices);
+			takeawayCalculation(location,amountOfItems,totalItems,names,HCPrices,takeaway,barrioPrices,centroPrices,PaintVerification,ConsVerification,PWVerification );
 			totalItemHC1=totalItemHC( amountOfItems, HCPrices,totalItems);
 			totalItemBarrio1=totalItemBarrio(amountOfItems,barrioPrices,totalItems);
 			totalItemCentro1=totalItemCentro(amountOfItems, centroPrices, totalItems);
 			System.out.println("");
-			//System.out.println("domicilio es: "+takeawayCalculation(location, amountOfItems, totalItems,totalItemHC1,totalItemBarrio1,totalItemCentro1,names,HCPrices,centroPrices));
+			UseTypeChoice(PWArray,ConsArray,PaintArray,names,totalItems,useType);
+			
 			
 	}
 	/**
@@ -250,21 +254,26 @@ public class TareaIntegradora1{
 	/**
 	*Get the price of takeaway <br>
 	*<b> pre: </b> previous arrays got to be filled
-	*@param amountOfItems list of the amount for each item in Home Center
-	*@param HCPrices list of prices for each item
+	*@param amountOfItems list of the amount for each item 
+	*@param HCPrices list of prices for each item in Home Center
 	*@param totalItems total amount of items
 	*@param location location of the buyer
 	*@param names names of the products
 	*@param takeaway takeaway price
 	*@param barrioPrices list of prices for each item in la ferreteria del barrio
 	*@param centroPrices list of prices for each item in la ferreteria del centro
+	*@param PaintVerification search the use type paint
+	*@param ConsVerification search the use type construction
+	*@param PWVerification search the use type Plumbing work
 	*/
-	public static void takeawayCalculation(LocationEnum location, int[] amountOfItems, int totalItems,String [] names, double [] HCPrices, double takeaway, double [] barrioPrices,double [] centroPrices){
+	public static void takeawayCalculation(LocationEnum location, int[] amountOfItems, int totalItems,String [] names, double [] HCPrices, double takeaway, double [] barrioPrices,double [] centroPrices, boolean PaintVerification,boolean ConsVerification,boolean PWVerification ){
 	double totalPrice=0;
 	double totalTakeaway=0;
+	double generalTotal=0;
 		
 		for(int i=0;i<totalItems;i++){
 			System.out.print("el producto "+names[i]+" esta a mejor precio en ");
+			System.out.println("");
 			if(HCPrices[i]<barrioPrices[i]){
 				if(HCPrices[i]<centroPrices[i]){
 				totalPrice=(HCPrices[i]*amountOfItems[i])+totalPrice;
@@ -286,6 +295,7 @@ public class TareaIntegradora1{
 				}
 			}
 		}
+		System.out.println("");
 		System.out.println("el mejor total es: "+totalPrice);
 		switch(location){
 				case NORTH:
@@ -310,8 +320,20 @@ public class TareaIntegradora1{
 				}
 				break;
 			}
+			System.out.println("");
 			System.out.println("el domicilio es: "+totalTakeaway);
-			
+			generalTotal=totalPrice+totalTakeaway;
+			if(PaintVerification==true){
+				generalTotal=generalTotal+PAINTFIXED;
+			}
+			if(ConsVerification==true){
+				generalTotal=generalTotal+CONSTRUCTIONFIXED;
+			}
+			if(PWVerification==true){
+			generalTotal=generalTotal+PLUMBINGWORKFIXED;
+			}
+			System.out.println("");
+			System.out.println("el mejor total con domicilio y mano de obra es: "+generalTotal);
 	}
 		
 	/**
@@ -359,6 +381,58 @@ public class TareaIntegradora1{
 		}
 		return totalItemCentro;
 	}
+	/**
+	*Show the use type list the use choose<br>
+	*<b> pre: </b> previous arrays got to be filled
+	*@param PWArray empty array to fill with names of metirials for Plumbing work
+	*@param ConsArray empty array to fill with names of metirials for Construction
+	*@param PaintArray empty array to fill with names of metirials for Paint
+	*@param names names of the meterials
+	*@param useType array of use type per material
+	*/
+public static void UseTypeChoice(String[] PWArray, String[] ConsArray, String[] PaintArray, String[] names,int totalItems, UseTypeEnum[] useType){
+		int PWCounter=0;
+		int ConsCounter=0;
+		int PaintCounter=0;
+		Scanner entry=new Scanner(System.in);
+		for(int i=0;i<totalItems;i++){
+			switch(useType[i]){
+				case PLUMBINGWORK:
+				PWArray[PWCounter]=names[i];
+				PWCounter=PWCounter+1;
+				break;
+				case CONSTRUCTION:
+				ConsArray[ConsCounter]=names[i];
+				ConsCounter=ConsCounter+1;
+				break;
+				case PAINT:
+				PaintArray[PaintCounter]=names[i];
+				PaintCounter=PaintCounter+1;
+			}
+		}
+		System.out.println("ingrese 1 si deseea ver los articulos de obra negra, 2 para los de obra blanca y 3 para los de pintura: ");
+		int arraySelection=entry.nextInt();
+		switch (arraySelection){
+			case 1:
+			for(int n=0;n<PWCounter;n++){
+				System.out.println("los materiales para obra negra son: ");
+				System.out.println(PWArray[n]);
+			}
+			break;
+			case 2:
+			for(int j=0;j<ConsCounter;j++){
+				System.out.println("los materiales para obra blanca son: ");
+				System.out.println(ConsArray[j]);
+			}
+			break;
+			case 3:
+			for(int r=0;r<PaintCounter;r++){
+				System.out.println("los materiales para obra blanca son: ");
+				System.out.println(PaintArray[r]);
+			}
+			break;
+		}
+}
 }
 	
 
