@@ -273,25 +273,28 @@ public class TareaIntegradora1{
 		
 		for(int i=0;i<totalItems;i++){
 			System.out.print("el producto "+names[i]+" esta a mejor precio en ");
-			System.out.println("");
 			if(HCPrices[i]<barrioPrices[i]){
 				if(HCPrices[i]<centroPrices[i]){
 				totalPrice=(HCPrices[i]*amountOfItems[i])+totalPrice;
 				System.out.println("Home Center "+HCPrices[i]);
+				System.out.println("");
 				}
 				else{
 					totalPrice=(centroPrices[i]*amountOfItems[i])+totalPrice;
 					System.out.println("la ferreteria del centro "+centroPrices[i]);
+					System.out.println("");
 				}
 			}
 			else{
 				if(barrioPrices[i]<centroPrices[i]){
 					totalPrice=(barrioPrices[i]*amountOfItems[i])+totalPrice;
 				System.out.println("la ferreteria del barrio "+barrioPrices[i]);
+				System.out.println("");
 				}
 				else{
 					totalPrice=(centroPrices[i]*amountOfItems[i])+totalPrice;
 					System.out.println("la ferreteria del centro "+centroPrices[i]);
+					System.out.println("");
 				}
 			}
 		}
