@@ -1,7 +1,7 @@
 import java.util.Scanner;
 public class TareaIntegradora1{
-	public static final double PLUMBINGWORKFIX=2600000;
-	public static final double CONSTRUCTIONFIX=1300000;
+	public static final double PLUMBINGWORKFIXED=2600000;
+	public static final double CONSTRUCTIONFIXED=1300000;
 	public static final double PAINTFIX=980000;
 	public static void main(String[] args){
 		Scanner entry=new Scanner(System.in);
@@ -12,7 +12,7 @@ public class TareaIntegradora1{
 		double [] barrioPrices=new double[totalItems];
 		double [] centroPrices=new double[totalItems];
 		int [] amountOfItems=new int[totalItems];
-		Object [] useType=new Object[totalItems];
+		UseTypeEnum [] useType=new UseTypeEnum[totalItems];
 		boolean PWVerification=false;
 		boolean ConsVerification=false;
 		boolean PaintVerification=false;
@@ -54,30 +54,29 @@ public class TareaIntegradora1{
 			System.out.println("El costo total en la ferreteria del centro es: "+totalMetodCentro(amountOfItems,centroPrices,totalItems));
 		System.out.println("");
 	}
+	/**
+	*Get the total price in Home Center <br>
+	*<b> pre: </b> previous arrays got to be filled
+	*@param amountOfItems list of the amount for each item
+	*@param HCPrices list of prices for each item
+	*@param totalItems total amount of items
+	*@param PaintVerification search the use type paint
+	*@param ConsVerification search the use type construction
+	*@param PWVerification search the use type Plumbing work
+	*@param useType list of use types
+	*@return it returns the total price in Home Center
+	*/
 	public static double TotalMetodHC(int[] amountOfItems, double[] HCPrices, int totalItems, boolean PaintVerification, boolean ConsVerification, boolean PWVerification,Object[] useType){
 		double totalPriceHC=0;
 		for(int i=0;i<totalItems;i++){
 			totalPriceHC=(amountOfItems[i]*HCPrices[i])+totalPriceHC;
 		}
 		/*for(int n=0;n<totalItems;n++){
-			if(useType[n]==UseTypeEnum.PLUMBINGWORK){
-				PWVerification=true;
-			}
-			if(useType[n]==UseTypeEnum.CONSTRUCTION){
-				ConsVerification=true;
-			}
-			if(useType[n]==UseTypeEnum.PAINT){
-				PaintVerification=true;
-			}
-		}*/
-		if((PaintVerification=true) && (ConsVerification=true)){
-			if(PWVerification=true){
-			totalPriceHC=totalPriceHC+PLUMBINGWORKFIX+CONSTRUCTIONFIX+PAINTFIX;
-			}
-			else{
-				totalPriceHC=totalPriceHC+CONSTRUCTIONFIX+PAINTFIX;
-			}
-		}
+			PWVerification=(useType[n]==UseTypeEnum.PLUMBINGWORK)?true:false;
+			ConsVerification=(useType[n]==UseTypeEnum.CONSTRUCTION)?true:false;
+			PaintVerification=(useType[n]==UseTypeEnum.PAINT)?true:false;
+	}*/
+		
 		return totalPriceHC;
 	}
 	public static double totalMetodCentro(int[] amountOfItems, double[] centroPrices, int totalItems){
